@@ -11,29 +11,28 @@ class QNetworkReply;
 class QNetworkRequest;
 class QNetworkAccessManager;
 
-class DropboxHttp : public QObject
+class DropboxBase : public QObject
 {
     Q_OBJECT
 
 public:
-    explicit DropboxHttp(QUrl, QString, QObject *parent=Q_NULLPTR);
-    ~DropboxHttp();
+    explicit DropboxBase(QObject *parent=Q_NULLPTR);
+    explicit DropboxBase(QString, QObject *parent=Q_NULLPTR);
+    ~DropboxBase();
 
-    void upload();
-    void getFilePreview(QString );
-    void getFileMetadata(QString );
-
-    QUrl getUrl() const;
     QString getApiKey() const;
+    QString getAuthToken(QString );
+
+    void setApiKey(QString );
 
 public slots:
     void synced(QNetworkReply* );
 
-private:
-    QUrl m_url;
+protected:
     QString m_apiKey;
     QNetworkRequest *m_request;
     QNetworkAccessManager *m_manager;
 };
+
 
 #endif // _DROPBOX_HTTP_H_

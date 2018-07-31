@@ -6,15 +6,12 @@
 #include <QNetworkRequest>
 #include <QNetworkAccessManager>
 
-
 #include "dropboxhttp.h"
 
 
-DropboxHttp::DropboxHttp(QUrl url, QString key, QObject *parent)
-    : QObject(parent),
-      m_url(url), m_apiKey(key),
-      m_request(new QNetworkRequest(m_url)),
-      m_manager(new QNetworkAccessManager())
+DropboxBase::DropboxBase(QString key, QObject *parent)
+    : QObject(parent), m_apiKey(key),
+      m_request(new QNetworkRequest()), m_manager(new QNetworkAccessManager())
 {
     QString authKey = "Bearer " + m_apiKey;
     m_request->setRawHeader(QByteArray("Authorization"), authKey.toUtf8());
@@ -22,39 +19,31 @@ DropboxHttp::DropboxHttp(QUrl url, QString key, QObject *parent)
                          "application/json");
 
     QObject::connect(m_manager, &QNetworkAccessManager::finished,
-                     this, &DropboxHttp::synced);
+                     this, &DropboxBase::synced);
 }
 
-DropboxHttp::~DropboxHttp()
+DropboxBase::~DropboxBase()
 {
     delete m_request;
     delete m_manager;
 }
 
-void DropboxHttp::upload()
-{}
-
-void DropboxHttp::getFilePreview(QString filepath)
-{}
-
-void DropboxHttp::getFileMetadata(QString filepath)
-{
-    QString data = "{\"path\": \"" + filepath + "\"}";
-    m_manager->post(*m_request, data.toUtf8());
-
-}
-
-QUrl DropboxHttp::getUrl() const
-{
-    return m_url;
-}
-
-QString DropboxHttp::getApiKey() const
+QString DropboxBase::getApiKey() const
 {
     return m_apiKey;
 }
 
-void DropboxHttp::synced(QNetworkReply *reply)
+QString DropboxBase::getAuthToken(QString oauth1Token)
+{
+    return "TODO";
+}
+
+void DropboxBase::setApiKey(QString key)
+{
+    m_apiKey = key;
+}
+
+void DropboxBase::synced(QNetworkReply *reply)
 {
     QVariant header = reply->header(QNetworkRequest::ContentTypeHeader);
     QByteArray data = reply->readAll();
