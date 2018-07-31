@@ -20,7 +20,8 @@ public:
     ~DropboxHttp();
 
     void upload();
-    void getMetadata(QString );
+    void getFilePreview(QString );
+    void getFileMetadata(QString );
 
     QUrl getUrl() const;
     QString getApiKey() const;

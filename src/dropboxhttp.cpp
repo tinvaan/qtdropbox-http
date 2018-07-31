@@ -18,9 +18,11 @@ DropboxHttp::DropboxHttp(QUrl url, QString key, QObject *parent)
 {
     QString authKey = "Bearer " + m_apiKey;
     m_request->setRawHeader(QByteArray("Authorization"), authKey.toUtf8());
-    m_request->setHeader(QNetworkRequest::ContentTypeHeader, "application/json");
+    m_request->setHeader(QNetworkRequest::ContentTypeHeader,
+                         "application/json");
 
-    QObject::connect(m_manager, &QNetworkAccessManager::finished, this, &DropboxHttp::synced);
+    QObject::connect(m_manager, &QNetworkAccessManager::finished,
+                     this, &DropboxHttp::synced);
 }
 
 DropboxHttp::~DropboxHttp()
@@ -32,7 +34,10 @@ DropboxHttp::~DropboxHttp()
 void DropboxHttp::upload()
 {}
 
-void DropboxHttp::getMetadata(QString filepath)
+void DropboxHttp::getFilePreview(QString filepath)
+{}
+
+void DropboxHttp::getFileMetadata(QString filepath)
 {
     QString data = "{\"path\": \"" + filepath + "\"}";
     m_manager->post(*m_request, data.toUtf8());
