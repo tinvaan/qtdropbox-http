@@ -6,41 +6,31 @@
 #include <QNetworkRequest>
 #include <QNetworkAccessManager>
 
-#include "dropboxhttp.h"
+#include "dropboxbase.h"
 
 
-DropboxBase::DropboxBase(QString key, QObject *parent)
-    : QObject(parent), m_apiKey(key),
+DropboxBase::DropboxBase(QObject *parent)
+    : QObject(parent),
       m_request(new QNetworkRequest()), m_manager(new QNetworkAccessManager())
 {
-    QString authKey = "Bearer " + m_apiKey;
-    m_request->setRawHeader(QByteArray("Authorization"), authKey.toUtf8());
     m_request->setHeader(QNetworkRequest::ContentTypeHeader,
                          "application/json");
 
-    QObject::connect(m_manager, &QNetworkAccessManager::finished,
-                     this, &DropboxBase::synced);
+// TODO/FIXME:
+//    if (m_request->hasRawHeader(QByteArray("Authorization"))) {
+//        QString authKey = "Bearer " + m_apiKey;
+//        m_request->setRawHeader(QByteArray("Authorization"),
+//                                authKey.toUtf8());
+//    }
+
+//    QObject::connect(m_manager, &QNetworkAccessManager::finished,
+//                     this, &DropboxBase::synced);
 }
 
 DropboxBase::~DropboxBase()
 {
     delete m_request;
     delete m_manager;
-}
-
-QString DropboxBase::getApiKey() const
-{
-    return m_apiKey;
-}
-
-QString DropboxBase::getAuthToken(QString oauth1Token)
-{
-    return "TODO";
-}
-
-void DropboxBase::setApiKey(QString key)
-{
-    m_apiKey = key;
 }
 
 void DropboxBase::synced(QNetworkReply *reply)

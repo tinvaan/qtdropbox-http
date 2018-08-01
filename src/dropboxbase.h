@@ -1,5 +1,5 @@
-#ifndef _DROPBOX_HTTP_H_
-#define _DROPBOX_HTTP_H_
+#ifndef _DROPBOX_BASE_H_
+#define _DROPBOX_BASE_H_
 
 
 #include <QUrl>
@@ -17,22 +17,21 @@ class DropboxBase : public QObject
 
 public:
     explicit DropboxBase(QObject *parent=Q_NULLPTR);
-    explicit DropboxBase(QString, QObject *parent=Q_NULLPTR);
     ~DropboxBase();
 
-    QString getApiKey() const;
-    QString getAuthToken(QString );
+    QNetworkRequest* request() const;
+    QNetworkAccessManager* manager() const;
 
-    void setApiKey(QString );
+    void setRequest(QNetworkRequest* );
+    void setManager(QNetworkAccessManager* );
 
 public slots:
     void synced(QNetworkReply* );
 
 protected:
-    QString m_apiKey;
     QNetworkRequest *m_request;
     QNetworkAccessManager *m_manager;
 };
 
 
-#endif // _DROPBOX_HTTP_H_
+#endif // _DROPBOX_BASE_H_
