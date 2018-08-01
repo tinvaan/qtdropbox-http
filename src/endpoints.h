@@ -8,42 +8,41 @@
 namespace Dropbox {
 struct Endpoint
 {
-    const QString DROPBOX_V2_ENDPOINT = "https://api.dropboxapi.com/2/";
+    static const QString DROPBOX_V2_ENDPOINT;
 
-    QUrl getHttpUrl(const QString ) const;
-    QString getHttpUrlString(const QString ) const;
+    static QUrl getHttpUrl(const QString );
+    static QString getHttpUrlString(const QString );
 };
 
 struct AppAuth
 {
-    const QString DROPBOX_APP_AUTH_ENDPOINT = "https://api.dropbox.com/1";
+    static const QString DROPBOX_APP_AUTH_ENDPOINT;
+    static const QString APP_AUTHENTICATION;
 
-    const QString APP_AUTHENTICATION = "/metadata/link";
-
-    QUrl getAppAuthUrl() const;
-    QString getAppAuthUrlString() const;
+    static QUrl getAppAuthUrl();
+    static QString getAppAuthUrlString();
 };
 
 struct Auth : public Dropbox::Endpoint
 {
-    const QString USER_AUTHENTICATION = "users/get_current_account";
-    const QString TEAM_AUTHENTICATION = "team/get_info";
-    const QString TOKEN_FROM_OAUTH1 = "auth/token/from_oauth1";
-    const QString TOKEN_REVOKE = "auth/token/revoke";
+    static const QString USER_AUTHENTICATION;
+    static const QString TEAM_AUTHENTICATION;
+    static const QString TOKEN_FROM_OAUTH1;
+    static const QString TOKEN_REVOKE;
 };
 
 
 namespace Folders {
 struct Folder : public Dropbox::Endpoint
 {
-    const QString FOLDER_CREATE = "files/create_folder_v2";
-    const QString FOLDER_CREATE_BATCH = "files/create_folder_batch";
-    const QString FOLDER_CREATE_BATCH_CHECK = "files/create_folder_batch/check";
-    const QString LIST_FOLDER = "files/list_folder";
-    const QString LIST_FOLDER_CONTINUE = "files/list_folder/continue";
-    const QString LIST_FOLDER_LATEST_CURSOR = "files/list_folder/get_latest_cursor";
-    const QString LIST_FOLDER_LONGPOLL = "files/list_folder/longpoll";
-    const QString SEARCH_FOLDER = "files/search";
+    static const QString FOLDER_CREATE;
+    static const QString FOLDER_CREATE_BATCH;
+    static const QString FOLDER_CREATE_BATCH_CHECK;
+    static const QString LIST_FOLDER;
+    static const QString LIST_FOLDER_CONTINUE;
+    static const QString LIST_FOLDER_LATEST_CURSOR;
+    static const QString LIST_FOLDER_LONGPOLL;
+    static const QString SEARCH_FOLDER;
 };
 }
 
@@ -51,81 +50,81 @@ struct Folder : public Dropbox::Endpoint
 namespace Files {
 struct Properties : public Dropbox::Endpoint
 {
-    const QString PROPERTY_ADD = "file_properties/properties/add";
-    const QString PROPERTY_OVERWRITE = "file_properties/properties/overwrite";
-    const QString PROPERTY_REMOVE = "file_properties/properties/remove";
-    const QString PROPERTY_SEARCH = "file_properties/properties/search";
-    const QString PROPERTY_SEARCH_CONTINUE = "file_properties/properties/search/continue";
-    const QString PROPERTY_UPDATE = "file_properties/properties/update";
+    static const QString PROPERTY_ADD;
+    static const QString PROPERTY_OVERWRITE;
+    static const QString PROPERTY_REMOVE;
+    static const QString PROPERTY_SEARCH;
+    static const QString PROPERTY_SEARCH_CONTINUE;
+    static const QString PROPERTY_UPDATE;
 };
 
 struct Templates : public Properties
 {
-    const QString ADD_FOR_USER = "file_properties/templates/add_for_user";
-    const QString GET_FOR_USER = "file_properties/templates/get_for_user";
-    const QString LIST_FOR_USER = "file_properties/templates/list_for_user";
-    const QString REMOVE_FOR_USER = "file_properties/templates/remove_for_user";
-    const QString UPDATE_FOR_USER = "file_properties/templates/update_for_user";
+    static const QString ADD_FOR_USER;
+    static const QString GET_FOR_USER;
+    static const QString LIST_FOR_USER;
+    static const QString REMOVE_FOR_USER;
+    static const QString UPDATE_FOR_USER;
 };
 
 struct Requests : public Dropbox::Endpoint
 {
-    const QString CREATE = "file_requests/create";
-    const QString GET = "file_requests/get";
-    const QString LIST = "file_requests/list";
-    const QString UPDATE = "file_requests/update";
+    static const QString CREATE;
+    static const QString GET;
+    static const QString LIST;
+    static const QString UPDATE;
 };
 
 struct File : public Dropbox::Endpoint
 {
-    const QString COPY = "files/copy_v2";
-    const QString COPY_BATCH = "files/copy_batch";
-    const QString COPY_BATCH_CHECK = "files/copy_batch/check";
-    const QString COPY_REFERENCE_GET = "files/copy_reference/get";
-    const QString COPY_REFERENCE_SAVE = "files/copy_reference/save";
+    static const QString COPY;
+    static const QString COPY_BATCH;
+    static const QString COPY_BATCH_CHECK;
+    static const QString COPY_REFERENCE_GET;
+    static const QString COPY_REFERENCE_SAVE;
 
-    const QString DELETE = "files/delete_v2";
-    const QString DELETE_BATCH = "files/delete_batch";
-    const QString DELETE_BATCH_CHECK = "files/delete_batch/check";
-    const QString PERMANENTLY_DELETE = "files/permanently_delete";
+    static const QString DELETE;
+    static const QString DELETE_BATCH;
+    static const QString DELETE_BATCH_CHECK;
+    static const QString PERMANENTLY_DELETE;
 
-    const QString RESTORE_TO_REVISION = "files/restore";
-    const QString LIST_REVISIONS = "files/list_revisions";
+    static const QString RESTORE_TO_REVISION;
+    static const QString LIST_REVISIONS;
 
-    const QString MOVE = "files/move_v2";
-    const QString MOVE_BATCH = "files/move_batch";
-    const QString MOVE_BATCH_CHECK = "files/move_batch/check";
+    static const QString MOVE;
+    static const QString MOVE_BATCH;
+    static const QString MOVE_BATCH_CHECK;
 
-    const QString SAVE_URL = "files/save_url";
-    const QString SAVE_URL_CHECK_STATUS = "files/save_url/check_job_status";
+    static const QString SAVE_URL;
+    static const QString SAVE_URL_CHECK_STATUS;
 
-    const QString SEARCH_FILE = "files/search";
+    static const QString SEARCH_FILE;
 };
 
 struct Upload : public File
 {
-    const QString UPLOAD = "files/upload";
-    const QString UPLOAD_START = "files/upload_session/start";
-    const QString UPLOAD_SESSION_APPEND = "files/upload_session/append_v2";
-    const QString UPLOAD_SESSION_FINISH = "files/upload_session/finish";
-    const QString UPLOAD_SESSION_FINISH_BATCH = "files/upload_session/finish_batch";
-    const QString UPLOAD_SESSION_FINISH_BATCH_CHECK = "files/upload_session/finish_batch/check";
+    static const QString UPLOAD;
+    static const QString UPLOAD_START;
+    static const QString UPLOAD_SESSION_APPEND;
+    static const QString UPLOAD_SESSION_FINISH;
+    static const QString UPLOAD_SESSION_FINISH_BATCH;
+    static const QString UPLOAD_SESSION_FINISH_BATCH_CHECK;
 };
 
 struct Download : public File
 {
-    const QString DOWNLOAD = "files/download";
-    const QString DOWNLOAD_ZIP = "files/download_zip";
+    static const QString DOWNLOAD;
+    static const QString DOWNLOAD_ZIP;
 };
 
 struct MetaInfo : public File
 {
-    const QString GET_METADATA = "files/get_metadata";
-    const QString GET_PREVIEW = "files/get_preview";
-    const QString GET_TEMPORARY_LINK = "files/get_temporary_link";
-    const QString GET_TEMPORARY_UPLOAD_LINK = "files/get_temporary_upload_link";
-    const QString GET_THUMBNAIL = "files/get_thumbnail";
-    const QString GET_THUMBNAIL_BATCH = "files/get_thumbnail_batch";
+    static const QString GET_METADATA;
+    static const QString GET_PREVIEW;
+    static const QString GET_TEMPORARY_LINK;
+    static const QString GET_TEMPORARY_UPLOAD_LINK;
+    static const QString GET_THUMBNAIL;
+    static const QString GET_THUMBNAIL_BATCH;
 };
 }
 
