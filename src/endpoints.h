@@ -14,11 +14,24 @@ struct Endpoint
     QString getHttpUrlString(const QString ) const;
 };
 
+struct AppAuth
+{
+    const QString DROPBOX_APP_AUTH_ENDPOINT = "https://api.dropbox.com/1";
+
+    const QString APP_AUTHENTICATION = "/metadata/link";
+
+    QUrl getAppAuthUrl() const;
+    QString getAppAuthUrlString() const;
+};
+
 struct Auth : public Dropbox::Endpoint
 {
+    const QString USER_AUTHENTICATION = "users/get_current_account";
+    const QString TEAM_AUTHENTICATION = "team/get_info";
     const QString TOKEN_FROM_OAUTH1 = "auth/token/from_oauth1";
     const QString TOKEN_REVOKE = "auth/token/revoke";
 };
+
 
 namespace Folders {
 struct Folder : public Dropbox::Endpoint
@@ -33,6 +46,7 @@ struct Folder : public Dropbox::Endpoint
     const QString SEARCH_FOLDER = "files/search";
 };
 }
+
 
 namespace Files {
 struct Properties : public Dropbox::Endpoint
@@ -115,15 +129,7 @@ struct MetaInfo : public File
 };
 }
 
-QUrl Endpoint::getHttpUrl(const QString url) const
-{
-    return QUrl(DROPBOX_V2_ENDPOINT + url);
-}
 
-QString Endpoint::getHttpUrlString(const QString url) const
-{
-    return QString(DROPBOX_V2_ENDPOINT + url);
-}
 }
 
 #endif // _DROPBOX_API_ENDPOINTS_H_
