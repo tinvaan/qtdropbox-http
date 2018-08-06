@@ -14,6 +14,10 @@ public:
     explicit DropboxAuth(QString, QObject *parent=Q_NULLPTR);
     explicit DropboxAuth(QString, QString, QObject *parent=Q_NULLPTR);
 
+    void appAuthentication();
+    void userAuthentication();
+    void teamAuthentication();
+
     void setAppKey(QString );
     void setApiToken(QString );
     void setAppSecret(QString );
@@ -21,10 +25,6 @@ public:
     QString getAppKey() const;
     QString getApiToken() const;
     QString getAppSecret() const;
-
-    QString appAuthentication();
-    QString userAuthentication();
-    QString teamAuthentication();
 
 private:
     QString m_apiToken;

@@ -1,3 +1,4 @@
+#include <QNetworkReply>
 #include <QNetworkRequest>
 #include <QNetworkAccessManager>
 
@@ -14,6 +15,35 @@ DropboxAuth::DropboxAuth(QString token, QObject *parent)
 DropboxAuth::DropboxAuth(QString key, QString secret, QObject *parent)
     : DropboxBase(parent), m_appKey(key), m_appSecret(secret)
 {}
+
+void DropboxAuth::appAuthentication()
+{
+    // TODO
+}
+
+void DropboxAuth::userAuthentication()
+{
+    request()->setUrl(Auth::getHttpUrl(Auth::USER_AUTHENTICATION));
+    request()->setRawHeader(QByteArray("Authorization"),
+                            QString("Bearer " + getApiToken()).toUtf8());
+
+    connect(manager(), &QNetworkAccessManager::finished,
+            this, &DropboxAuth::synced);
+
+    manager()->post(*(request()), QByteArray());
+}
+
+void DropboxAuth::teamAuthentication()
+{
+    request()->setUrl(Auth::getHttpUrl(Auth::TEAM_AUTHENTICATION));
+    request()->setRawHeader(QByteArray("Authorization"),
+                            QString("Bearer " + getApiToken()).toUtf8());
+
+    connect(manager(), &QNetworkAccessManager::finished,
+            this, &DropboxAuth::synced);
+
+    manager()->post(*(request()), QByteArray());
+}
 
 void DropboxAuth::setAppKey(QString key)
 {
@@ -43,29 +73,6 @@ QString DropboxAuth::getApiToken() const
 QString DropboxAuth::getAppSecret() const
 {
     return m_appSecret;
-}
-
-QString DropboxAuth::appAuthentication()
-{
-    return "TODO";
-}
-
-QString DropboxAuth::userAuthentication()
-{
-    request()->setUrl(Auth::getHttpUrl(Auth::USER_AUTHENTICATION));
-    request()->setRawHeader(QByteArray("Authorization"),
-                            QString("Bearer " + getApiToken()).toUtf8());
-
-    manager()->post(*(request()), QByteArray());
-}
-
-QString DropboxAuth::teamAuthentication()
-{
-    request()->setUrl(Auth::getHttpUrl(Auth::TEAM_AUTHENTICATION));
-    request()->setRawHeader(QByteArray("Authorization"),
-                            QString("Bearer " + getApiToken()).toUtf8());
-
-    manager()->post(*(request()), QByteArray());
 }
 
 }

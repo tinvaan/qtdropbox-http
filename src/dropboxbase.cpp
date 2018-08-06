@@ -15,22 +15,32 @@ DropboxBase::DropboxBase(QObject *parent)
 {
     m_request->setHeader(QNetworkRequest::ContentTypeHeader,
                          "application/json");
-
-// TODO/FIXME:
-//    if (m_request->hasRawHeader(QByteArray("Authorization"))) {
-//        QString authKey = "Bearer " + m_apiKey;
-//        m_request->setRawHeader(QByteArray("Authorization"),
-//                                authKey.toUtf8());
-//    }
-
-//    QObject::connect(m_manager, &QNetworkAccessManager::finished,
-//                     this, &DropboxBase::synced);
 }
 
 DropboxBase::~DropboxBase()
 {
     delete m_request;
     delete m_manager;
+}
+
+QNetworkRequest* DropboxBase::request() const
+{
+    return m_request;
+}
+
+QNetworkAccessManager* DropboxBase::manager() const
+{
+    return m_manager;
+}
+
+void DropboxBase::setRequest(QNetworkRequest *request)
+{
+    m_request = request;
+}
+
+void DropboxBase::setManager(QNetworkAccessManager *manager)
+{
+    m_manager = manager;
 }
 
 void DropboxBase::synced(QNetworkReply *reply)
