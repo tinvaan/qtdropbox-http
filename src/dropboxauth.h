@@ -1,12 +1,12 @@
 #ifndef _DROPBOX_AUTH_H_
 #define _DROPBOX_AUTH_H_
 
-#include "dropboxbase.h"
+#include "dropboxrequest.h"
 
 
 namespace Dropbox {
 
-class DropboxAuth : public DropboxBase
+class DropboxAuth : public DropboxRequest
 {
     Q_OBJECT
 

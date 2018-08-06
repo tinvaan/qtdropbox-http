@@ -1,5 +1,5 @@
-#ifndef _DROPBOX_BASE_H_
-#define _DROPBOX_BASE_H_
+#ifndef _DROPBOX_REQUEST_H_
+#define _DROPBOX_REQUEST_H_
 
 
 #include <QUrl>
@@ -11,13 +11,15 @@ class QNetworkReply;
 class QNetworkRequest;
 class QNetworkAccessManager;
 
-class DropboxBase : public QObject
+namespace Dropbox {
+
+class DropboxRequest : public QObject
 {
     Q_OBJECT
 
 public:
-    explicit DropboxBase(QObject *parent=Q_NULLPTR);
-    ~DropboxBase();
+    explicit DropboxRequest(QObject *parent=Q_NULLPTR);
+    ~DropboxRequest();
 
     QNetworkRequest* request() const;
     QNetworkAccessManager* manager() const;
@@ -33,5 +35,7 @@ protected:
     QNetworkAccessManager *m_manager;
 };
 
+}
 
-#endif // _DROPBOX_BASE_H_
+
+#endif // _DROPBOX_REQUEST_H_

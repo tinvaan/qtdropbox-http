@@ -6,10 +6,12 @@
 #include <QNetworkRequest>
 #include <QNetworkAccessManager>
 
-#include "dropboxbase.h"
+#include "dropboxrequest.h"
 
 
-DropboxBase::DropboxBase(QObject *parent)
+namespace Dropbox {
+
+DropboxRequest::DropboxRequest(QObject *parent)
     : QObject(parent),
       m_request(new QNetworkRequest()), m_manager(new QNetworkAccessManager())
 {
@@ -17,33 +19,33 @@ DropboxBase::DropboxBase(QObject *parent)
                          "application/json");
 }
 
-DropboxBase::~DropboxBase()
+DropboxRequest::~DropboxRequest()
 {
     delete m_request;
     delete m_manager;
 }
 
-QNetworkRequest* DropboxBase::request() const
+QNetworkRequest* DropboxRequest::request() const
 {
     return m_request;
 }
 
-QNetworkAccessManager* DropboxBase::manager() const
+QNetworkAccessManager* DropboxRequest::manager() const
 {
     return m_manager;
 }
 
-void DropboxBase::setRequest(QNetworkRequest *request)
+void DropboxRequest::setRequest(QNetworkRequest *request)
 {
     m_request = request;
 }
 
-void DropboxBase::setManager(QNetworkAccessManager *manager)
+void DropboxRequest::setManager(QNetworkAccessManager *manager)
 {
     m_manager = manager;
 }
 
-void DropboxBase::synced(QNetworkReply *reply)
+void DropboxRequest::synced(QNetworkReply *reply)
 {
     QVariant header = reply->header(QNetworkRequest::ContentTypeHeader);
     QByteArray data = reply->readAll();
@@ -51,4 +53,6 @@ void DropboxBase::synced(QNetworkReply *reply)
     qDebug() << "Header   : " << header.toString();
     qDebug() << "Error    : " << reply->error();
     qDebug() << "Response : " << QString::fromStdString(data.toStdString());
+}
+
 }

@@ -9,11 +9,11 @@
 namespace Dropbox {
 
 DropboxAuth::DropboxAuth(QString token, QObject *parent)
-    : DropboxBase(parent), m_apiToken(token)
+    : DropboxRequest(parent), m_apiToken(token)
 {}
 
 DropboxAuth::DropboxAuth(QString key, QString secret, QObject *parent)
-    : DropboxBase(parent), m_appKey(key), m_appSecret(secret)
+    : DropboxRequest(parent), m_appKey(key), m_appSecret(secret)
 {}
 
 void DropboxAuth::appAuthentication()
