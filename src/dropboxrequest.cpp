@@ -17,6 +17,9 @@ DropboxRequest::DropboxRequest(QObject *parent)
 {
     m_request->setHeader(QNetworkRequest::ContentTypeHeader,
                          "application/json");
+
+    connect(m_manager, &QNetworkAccessManager::finished,
+            this, &DropboxRequest::synced);
 }
 
 DropboxRequest::~DropboxRequest()

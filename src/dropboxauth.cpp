@@ -12,13 +12,19 @@ DropboxAuth::DropboxAuth(QString token, QObject *parent)
     : DropboxRequest(parent), m_apiToken(token)
 {}
 
-DropboxAuth::DropboxAuth(QString key, QString secret, QObject *parent)
-    : DropboxRequest(parent), m_appKey(key), m_appSecret(secret)
+DropboxAuth::DropboxAuth(QString token, QString key, QString secret,
+                         QObject *parent)
+    : DropboxRequest(parent), m_apiToken(token),
+      m_appKey(key), m_appSecret(secret)
 {}
 
 void DropboxAuth::appAuthentication()
 {
-    // TODO
+    if (m_appKey == QString() || m_appSecret == QString())
+        return;
+    else {
+        // TODO
+    }
 }
 
 void DropboxAuth::userAuthentication()
@@ -26,9 +32,6 @@ void DropboxAuth::userAuthentication()
     request()->setUrl(Auth::getHttpUrl(Auth::USER_AUTHENTICATION));
     request()->setRawHeader(QByteArray("Authorization"),
                             QString("Bearer " + getApiToken()).toUtf8());
-
-    connect(manager(), &QNetworkAccessManager::finished,
-            this, &DropboxAuth::synced);
 
     manager()->post(*(request()), QByteArray());
 }
@@ -38,9 +41,6 @@ void DropboxAuth::teamAuthentication()
     request()->setUrl(Auth::getHttpUrl(Auth::TEAM_AUTHENTICATION));
     request()->setRawHeader(QByteArray("Authorization"),
                             QString("Bearer " + getApiToken()).toUtf8());
-
-    connect(manager(), &QNetworkAccessManager::finished,
-            this, &DropboxAuth::synced);
 
     manager()->post(*(request()), QByteArray());
 }

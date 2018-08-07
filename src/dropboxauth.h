@@ -12,7 +12,7 @@ class DropboxAuth : public DropboxRequest
 
 public:
     explicit DropboxAuth(QString, QObject *parent=Q_NULLPTR);
-    explicit DropboxAuth(QString, QString, QObject *parent=Q_NULLPTR);
+    explicit DropboxAuth(QString, QString, QString, QObject *parent=Q_NULLPTR);
 
     void appAuthentication();
     void userAuthentication();
