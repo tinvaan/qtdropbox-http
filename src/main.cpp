@@ -6,16 +6,16 @@
 
 int main(int argc, char *argv[])
 {
-    if (argc != 3) {
-        qWarning() << "Please provide app key and secret";
+    if (argc != 2) {
+        qWarning() << "Please provide API token";
         return EXIT_FAILURE;
     }
 
     QCoreApplication app(argc, argv);
-    QString key(static_cast<char*>(argv[1]));
-    QString secret(static_cast<char*>(argv[2]));
+    QString token(static_cast<char*>(argv[1]));
 
-    Dropbox::DropboxAuth dauth(key, secret);
+
+    Dropbox::DropboxAuth dauth(token);
     dauth.userAuthentication();
 //    dbox.getMetadata("/Plasma Publictransport/no_ruter.zip");
 
