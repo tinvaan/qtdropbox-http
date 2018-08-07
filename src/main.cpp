@@ -2,6 +2,7 @@
 #include <QCoreApplication>
 
 #include "dropboxauth.h"
+#include "dropboxfiles.h"
 
 
 int main(int argc, char *argv[])
@@ -15,9 +16,9 @@ int main(int argc, char *argv[])
     QString token(static_cast<char*>(argv[1]));
 
 
-    Dropbox::DropboxAuth dauth(token);
-    dauth.userAuthentication();
-//    dbox.getMetadata("/Plasma Publictransport/no_ruter.zip");
+    Dropbox::DropboxFiles dbox(token);
+//    dbox.userAuthentication();
+    dbox.getMetadata("/Plasma Publictransport/no_ruter.zip");
 
     return app.exec();
 }
